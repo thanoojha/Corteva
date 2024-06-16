@@ -90,7 +90,24 @@ class  Game:
 2) If the game is not `running`:
    	The method checks the laser's `final direction` and `prints the exit position`.
 
-  
+   ```python
+   if self.laser_position.direction == "HN":
+            print(f"Exit position: {self.laser_position.x+1}, {self.laser_position.y}, H")
+   elif self.laser_position.direction == "HS":
+            print(f"Exit position: {self.laser_position.x-1}, {self.laser_position.y}, H")
+   elif self.laser_position.direction == "VE":
+            print(f"Exit position: {self.laser_position.x}, {self.laser_position.y-1}, V")
+   elif self.laser_position.direction == "VW":
+            print(f"Exit position: {self.laser_position.x}, {self.laser_position.y+1}, V")
+
+   ```
+   
+   ![Image Description](https://drive.google.com/uc?export=view&id=1JDYwh0x41HYauaIx_H0HLYj_q75X_LjX)
+   
+- If the direction of the laser is `HN` then the `x coordinate` keeps decreasing and it will be out of bounds so increase the value of `x`  by `1` to get the exit position.
+- Likewise, if the direction of the laser is `HS` then the `x coordinate` keeps increasing and it will be out of bounds so decrease the value of `x`  by `1` to get the exit position.
+- Likewise, if the direction of the laser is `VE` then the `y coordinate` keeps increasing and it will be out of bounds so decrease the value of `y`  by `1` to get the exit position.
+- Likewise, if the direction of the laser is `VW` then the `y coordinate` keeps decreasing and it will be out of bounds so increase the value of `y`  by `1` to get the exit position.
 
 `start` method runs the main game loop:
 
@@ -132,7 +149,29 @@ class  Game:
 - if `curr =0`, the line contains maze dimensions. Retrieves the dimensions and catches exceptions if there's any failure in the retrieval.
 - if `curr =1`, the line contains mirror information. Retrieves the coordinates of the mirror and the orientation and adds the mirror to the `Game` in case of both `one-side` or `two-side` mirrors. Catches exceptions in case of any failures.
 - if `curr = 2`, the line contains the starting position and direction of the laser. Checks for the direction of the laser and assigns the current position of the laser accordingly. Catches exceptions in case of any failures.
-
+```python
+if y[-1] == "V":
+	if int(y[:-1]) == 0:
+		curr_pos = [int(x), int(y[:-1]), "VE"]
+	elif int(x) == n - 1:
+		curr_pos = [int(x), int(y[:-1]), "VW"]
+	else:
+		curr_pos = [int(x), int(y[:-1]), "VW"]
+elif y[-1] == "H":
+	if int(x) == 0:
+		curr_pos = [int(x), int(y[:-1]), "HS"]
+	elif int(y[:-1]) == m - 1:
+		curr_pos = [int(x), int(y[:-1]), "HN"]
+	else:
+		curr_pos = [int(x), int(y[:-1]), "HN"]
+	
+```
+1) If the direction of the laser is `V`:
+   - if the position is at the `right (int(y[:-1]) == 0)` then the direct would be `VE`
+   - if the position is at the `left (int(x) == n - 1)` then the direct would be `VW`
+2) Likewise, if the direction of the laser is `H`:
+   - if the position is at the `top (int(x) == 0)` then the direct would be `HS`
+   - if the position is at the `bottom (int(y[:-1]) == m - 1)` then the direct would be `HN`
 
 
 TestCases

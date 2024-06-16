@@ -259,7 +259,7 @@ Ensure the laser's x and y coordinates are within the vertical and horizontal bo
 ### Prerequisite 
 - Python3 
 - VS Code or any code editor. 
-- Test `txt` file.
+- `Test.txt` file.
 
 ### Run command
  `python3 main.py` 

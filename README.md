@@ -13,38 +13,38 @@ You will be given a rectangle containing square rooms in an X by Y configuration
 ### Assumptions
 
 - Maze dimensions provided in the input are always valid integers.
-- Mirror orientations can be RR, R, LL, L.
-- Laser direction can be VE(Vertical East),VW(Vertical West),  HS(Horizontal South), HN(Horizontal North).
-- Laser movement should be within the boundaries of the maze.
+- Mirror orientations can be `RR`, `R`, `LL`, `L`.
+- Laser direction can be `VE(Vertical East)`,`VW(Vertical West)`,  `HS(Horizontal South)`, `HN(Horizontal North)`.
+- *Laser movement* should be within the boundaries of the maze.
 - The input file is readable and accessible.
 
 ### Class Objects
 
-LaserPosition class is a data structure to hold the laser's position(x,y) and its direction.
+`LaserPosition` class is a *data structure* to hold the laser's position(`x`,`y`) and its direction.
 
-  python
+  ```python
   class  LazerPosition:
 	def  __init__(self, x, y, direction):
 		self.x  =  x
 		self.y  =  y
 		self.direction  =  direction
-  
+  ```
 
 ---
 
-Mirror class is a data structure to hold the mirror's position(x,y) and its orientation.
-python
+`Mirror` class is a *data structure* to hold the mirror's position(`x`,`y`) and its orientation.
+```python
 class  Mirror:
 	def  __init__(self, x, y, orientation):
 		self.x  =  x
 		self.y  =  y
 		self.orientation  =  orientation
-
+```
 ---
 
-Game class initialises the game with maze dimensions (maze_width, maze_height).
+`Game` class initialises the game with maze dimensions (`maze_width`, `maze_height`).
 
-python 
+```python 
 class  Game:
 	def  __init__(self, maze_width, maze_height):
 		self.maze_height  =  maze_height
@@ -54,27 +54,27 @@ class  Game:
 		self.mirrors  =  defaultdict(lambda: defaultdict(Mirror))
 		self.lazer_position  =  None
 		self.game_status  =  "running"
+```
 
+-  `max_try` is a safety precaution to prevent infinite loops, setting a high limit on the number of steps.
+- `current_step` is used to track the number of steps the laser has taken.
+- `mirrors` is a nested *defaultdict* storing mirrors at each (`x`, `y`) position.
+- `laser_position` is initialized to `None` initially and will store the laser's starting position.
+- `game_status` is used to track the game state. It starts as `running`.
 
--  max_try is a safety precaution to prevent infinite loops, setting a high limit on the number of steps.
-- current_step is used to track the number of steps the laser has taken.
-- mirrors is a nested defaultdict storing mirrors at each (x, y) position.
-- laser_position is initialized to None initially and will store the laser's starting position.
-- game_status is used to track the game state. It starts as running.
-
-- add_mirror is used to add a mirror at position ('x', 'y') with a specific orientation.
-- add_starting_position is used to set the initial position and direction of the laser.
-- print_dimensions is used to print the maze dimentions (width, height).
+- `add_mirror` is used to add a mirror at position ('x', 'y') with a specific orientation.
+- `add_starting_position` is used to set the initial position and direction of the laser.
+- `print_dimensions` is used to print the maze dimentions (`width`, `height`).
 
   
 
-print_current_position is used to print the laser position and the current direction of the laser to help debug and track the laser's path during the game execution.
+`print_current_position` is used to print the laser position and the current direction of the laser to help debug and track the laser's path during the game execution.
 
-print_out_of_bounds is used to print a out of bounds message to indicate that the laser id out of bound with the laser position and its direction. It is helpful to handle and debug situations where the laser leaves the maze.
+`print_out_of_bounds` is used to print a out of bounds message to indicate that the laser id out of bound with the laser position and its direction. It is helpful to handle and debug situations where the laser leaves the maze.
 
-print_starting_position is used to print the starting point of the laser and the first character of its direction which would be either H (Horizontal) or V(Vertical).
+`print_starting_position` is used to print the starting point of the laser and the first character of its direction which would be either H (Horizontal) or V(Vertical).
 
-print_exit_position is used to print exit position of the laser along with the direction the laser is exiting (H or V). This function first checks if the game is still running.
+`print_exit_position` is used to print exit position of the laser along with the direction the laser is exiting (`H` or `V`). This function first checks if the game is still running.
 
 1) If the game is still running:
 
@@ -82,13 +82,13 @@ print_exit_position is used to print exit position of the laser along with the d
 
 	ii) If the status of the game is running and if the current step is 0, it indicates that the laser has not started yet.
 
-	In the above to cases (i & ii) it returns None to exit the method.
+	`In the above to cases (i & ii) it returns None to exit the method`.
 
 2) If the game is not running: The method checks the laser's final direction and prints the exit position.
 
   
 
-start method runs the main game loop:
+`start` method runs the main game loop:
 
 1) It ensures the current step does not exceed the maximum steps allowed thereby eliminating any infinite loops.
 
@@ -116,11 +116,11 @@ start method runs the main game loop:
 
 ---
 
-get_file method is used to open a file from a specified file path and returns the file object. If the file is not found, it catches an exception and exits the function with a "File not found" message.
+`get_file` method is used to open a file from a specified file path and returns the file object. If the file is not found, it catches an exception and exits the function with a "File not found" message.
 
 ---
 
-start_program is the main function that initiates and runs the laser maze simulation. Main functions are file handling, parsing input, game initialization and simulation execution.
+`start_program` is the main function that initiates and runs the laser maze simulation. Main functions are file handling, parsing input, game initialization and simulation execution.
 
 1) Reads the input from "get_file" function and iterates over each line in the file. Removes leading and trailing whitespace from the line.
 2) Skips iteration if there's an empty line. Incrementing curr to move to the next section and continues with next iteration if line has -1
@@ -134,19 +134,19 @@ TestCases
 ---
 1) Input should be valid: try catch is return to handle invalid input in the code. Catches this error in the code.
 
-
+```
 	Input
 	5,5
 	-1
 	-1
 	0
-
-
+```
+```
 	Output: 
 	Starting mirror simulation
 	Enter file path: test.txt
 	Invalid starting position
-
+```
 ---
 2) Eliminating infinte loop by adding this piece of code:
 
@@ -161,40 +161,40 @@ Ensure the laser's x and y coordinates are within the vertical and horizontal bo
 
 ---
 4) Input with invalid mirror orientation: Catches this invalid mirror orientation error in the code.
-
+```
 	Input:
 	5,5
 	-1
 	1,1XYZ
 	-1
 	0,0V
-
-
+```
+```
 	Output: 
 	Starting mirror simulation
 	Enter file path: test.txt
 	Invalid mirror
-
+```
 5) Input with invalid dimensions: Catches this invalid dimenions error in the code.
-
+```
 	Input:
 	5,a
 	-1
 	1,1R
 	-1
 	0,0V
-
-
+```
+```
 	Output: 
 	Starting mirror simulation
 	Enter file path: test.txt
 	Invalid dimensions
-
+```
 
 ---
 6) If there are multiple mirrors at same position:
 
-
+```
 	Input:
 	5,5
 	-1
@@ -202,50 +202,50 @@ Ensure the laser's x and y coordinates are within the vertical and horizontal bo
 	1,1L
 	-1
 	0,0H
-
-
+```
+```
 	Output: 
 	Enter file path: test.txt
 	Dimensions: 5, 5
 	Starting position: 0, 0, H
 	Exit position: 4, 0, H
-
+```
 
 ---
 7) Input with invalid laser starting position: Catches this invalid laser starting position error in the code.
-
+```
 	Input:
 	5,5
 	-1
 	1,1R
 	-1
 	0,aH
-
-
+```
+```
 	Output: 
 	Starting mirror simulation
 	Enter file path: test.txt
 	Invalid starting position
-
+```
 
 ---
 8) Input with no mirrors:
 
-
+```
 	Input:
 	5,5
 	-1
 	-1
 	0,0H
-
-
+```
+```
 	Output: 
 	Starting mirror simulation
 	Enter file path: test.txt
 	Dimensions: 5, 5
 	Starting position: 0, 0, H
 	Exit position: 4, 0, H
-
+```
   
   
 
@@ -254,7 +254,8 @@ Ensure the laser's x and y coordinates are within the vertical and horizontal bo
 ### Prerequisite 
 - Python3 
 - VS Code or any code editor. 
-- Test txt file.
+- Test `txt` file.
 
 ### Run command
- python3 main.py
+ `python3 main.py` 
+
